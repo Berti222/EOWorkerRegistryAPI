@@ -1,6 +1,5 @@
 using EOWorkerRegistryAPI.Model;
 using EOWorkerRegistryAPI.Repository.ConcreteLogicServices;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<WorkerRegisterContext>(options => 
-                options.UseSqlite(builder.Configuration.GetConnectionString("WorkerRegistryConnection")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("WorkerRegistryConnection")));
 
-builder.Services.AddSingleton<IWorkerLogicService, WorkerLogicService>();
-builder.Services.AddSingleton<IOrganizationalUnitLogicService, OrganizationalUnitLogicService>();
+builder.Services.AddScoped<IOrganizationalUnitLogicService, OrganizationalUnitLogicService>();
+builder.Services.AddScoped<IWorkerLogicService, WorkerLogicService>();
 
 var app = builder.Build();
 
