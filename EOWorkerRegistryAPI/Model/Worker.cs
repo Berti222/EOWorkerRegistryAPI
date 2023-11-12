@@ -9,12 +9,9 @@ namespace EOWorkerRegistryAPI.Model
         public string UserName { get; set; }
         public string Password { get; set; }
 
-        public long SuperiorId { get; set; }
-        [ForeignKey(nameof(SuperiorId))]
         public virtual Worker Superior { get; set; }
+        public IQueryable<Worker> Emploies { get; set; }
 
-        public long OrganizationalUnitId { get; set; }
-        [ForeignKey(nameof(OrganizationalUnitId))]
-        public OrganizationalUnit OrganizationalUnit { get; set; }
+        public virtual OrganizationalUnit OrganizationalUnit { get; set; }
     }
 }
