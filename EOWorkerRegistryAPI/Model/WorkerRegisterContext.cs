@@ -28,5 +28,23 @@ namespace EOWorkerRegistryAPI.Model
                        .WithMany(u => u.Workers)
                        .OnDelete(DeleteBehavior.NoAction);
         }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var modifiedEntries = ChangeTracker.Entries()
+                    .Where(x => (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (var entry in modifiedEntries)
+            {
+                var entity = entry.Entity as ICreatedModifiedBy;
+
+                if (entry.State == EntityState.Added)
+                    entity.CreatedBy = StaticValues.SavingUpdatingUserId;
+
+                entity.ModifiedBy = StaticValues.SavingUpdatingUserId;
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
     }
 }
