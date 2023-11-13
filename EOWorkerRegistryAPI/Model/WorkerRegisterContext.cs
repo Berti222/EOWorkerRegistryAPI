@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace EOWorkerRegistryAPI.Model
 {
@@ -18,9 +17,11 @@ namespace EOWorkerRegistryAPI.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Worker>()
-                       .HasOne(e => e.Superior)
-                       .WithMany(u => u.Emploies)
-                       .OnDelete(DeleteBehavior.NoAction);
+                       .HasMany(u => u.Emploies)
+                       .WithOne(u => u.Superior)
+                       .HasForeignKey(u => u.SuperiorId)
+                       .OnDelete(DeleteBehavior.NoAction)
+                       .IsRequired(false);
 
             modelBuilder.Entity<Worker>()
                        .HasOne(e => e.OrganizationalUnit)
