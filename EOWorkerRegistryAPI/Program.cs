@@ -1,3 +1,4 @@
+using EOWorkerRegistryAPI.CustomMappers;
 using EOWorkerRegistryAPI.Model;
 using EOWorkerRegistryAPI.Repository.ConcreteLogicServices;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<WorkerRegisterContext>(options =>
 
 builder.Services.AddScoped<IOrganizationalUnitLogicService, OrganizationalUnitLogicService>();
 builder.Services.AddScoped<IWorkerLogicService, WorkerLogicService>();
+builder.Services.AddScoped<IOrganizationalUnitMapper, OrganizationalUnitMapper>();
+builder.Services.AddScoped<IWorkerMapper, WorkerMapper>();
 
 var app = builder.Build();
 
