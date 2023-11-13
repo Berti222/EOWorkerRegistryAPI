@@ -22,7 +22,7 @@ namespace EOWorkerRegistryAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetByProperties([FromQuery] string name = "", string abbrevation = "")
         {
-            var query = await organizationalUnitLogicService.Query(ou => ou.Active);
+            var query = await organizationalUnitLogicService.Query(null);
             if (!string.IsNullOrWhiteSpace(name))
                 query = query.Where(ou => ou.Name == name);
             if (!string.IsNullOrWhiteSpace(abbrevation))

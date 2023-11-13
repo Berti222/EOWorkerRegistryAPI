@@ -34,9 +34,11 @@ namespace EOWorkerRegistryAPI.Repository
 
         public virtual async Task<IQueryable<TEntity>> Query(Expression<Func<TEntity, bool>> predicate)
         {
-            return context.Set<TEntity>()
-                          .Where(e => e.Active)
-                          .Where(predicate);
+            var query = context.Set<TEntity>()
+                          .Where(e => e.Active);
+            if (predicate != null)
+                query = query.Where(predicate);
+            return query;
         }
 
         public virtual async Task<TEntity> UpdateAsync(TEntity entity)

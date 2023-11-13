@@ -22,7 +22,7 @@ namespace EOWorkerRegistryAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetByProperties([FromQuery] string name = "", string rank = "", string phoneNumber = "")
         {
-            var query = await workerLogicService.Query(ou => ou.Active);
+            var query = await workerLogicService.Query(null);
             if (!string.IsNullOrWhiteSpace(name))
                 query = query.Where(ou => ou.Name == name);
             if (!string.IsNullOrWhiteSpace(rank))
